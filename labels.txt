@@ -1,0 +1,4 @@
+./outputs/MAN ON FIRE： Stuntman breaks world record-0-0 16 0
+./outputs/MAN ON FIRE： Stuntman breaks world record-0-1 16 0
+./outputs/MAN ON FIRE： Stuntman breaks world record-1-0 16 0
+./outputs/MAN ON FIRE： Stuntman breaks world record-1-1 16 0

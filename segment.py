@@ -9,11 +9,18 @@ from tool.videos import *
 
 inputPath = "./inputs"
 labelPath = "./segmentLabels"
+
 outputPath = "./outputs"
+labelsOutPath = "./labels.txt"
+
 segmentLength = 16
+
 
 videos = onlyfolders(inputPath)
 videoLabels = onlyfiles(labelPath)
+with open(labelsOutPath, 'w') as f:
+    pass
+f.close()
 
 for videoLabel in videoLabels:
     labels =[]
@@ -37,6 +44,9 @@ for videoLabel in videoLabels:
         while(counter< end+1 and  counter <= end):
             if((counter-start)%(segmentLength ) == 0):
                 framePath = outputPath +"/" +videoLabel.split("/")[-1].split(".txt")[0] + "-"+str(segi)+"-"+str(segN)
+                f= open(labelsOutPath, "a")
+                f.write(framePath+" " + str(segmentLength) +" " + str(classN) + "\n")
+                f.close()
                 try:
                     os.mkdir(framePath )
                 except:
@@ -51,6 +61,7 @@ for videoLabel in videoLabels:
             elif(countFromZero<1000):
                 fileName = "img_00" + str(countFromZero) + ".jpg"
             shutil.copyfile(frames[counter],framePath + "/" + fileName)
+
             #print(frames[counter],framePath + "/" + fileName)
             counter+=1
             countFromZero +=1
