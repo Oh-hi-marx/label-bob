@@ -13,8 +13,12 @@ labelPath = "./segmentLabels"
 outputPath = "./outputs"
 labelsOutPath = "./labels.txt"
 
-segmentLength = 16
+segmentLength = 99999999999999
 
+try:
+    os.mkdir(outputPath)
+except:
+    pass
 
 videos = onlyfolders(inputPath)
 videoLabels = onlyfiles(labelPath)
@@ -45,7 +49,8 @@ for videoLabel in videoLabels:
             if((counter-start)%(segmentLength ) == 0):
                 framePath = outputPath +"/" +videoLabel.split("/")[-1].split(".txt")[0] + "-"+str(segi)+"-"+str(segN)
                 f= open(labelsOutPath, "a")
-                f.write(framePath+" " + str(segmentLength) +" " + str(classN) + "\n")
+                print(counter,countFromZero,end,)
+                f.write(framePath+" " + str(min(end-counter, segmentLength)) +" " + str(classN) + "\n")
                 f.close()
                 try:
                     os.mkdir(framePath )

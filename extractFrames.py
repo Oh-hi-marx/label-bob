@@ -8,6 +8,10 @@ from tool.videos import *
 
 inputPath = "./downloads"
 outputPath = "inputs"
+try:
+	os.mkdir(outputPath)
+except:
+	pass
 files = onlyfiles(inputPath)
 for file in files:
 	outDir = outputPath + "/" + file.split("/")[-1].split(".")[0]
@@ -16,4 +20,3 @@ for file in files:
 	except:
 		pass
 	extractFrames(file,outDir ,resolution = (1080,1920))
-    
