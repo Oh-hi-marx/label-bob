@@ -1,37 +1,40 @@
-import cv2
-import numpy as np
-import time
 import os
 from multiprocessing import Process,  Value
-
+from tqdm.auto import tqdm
 from tool.files import *
 from tool.videos import *
 
 inputPath = "./downloads"
 outputPath = "inputs"
-numThreads = 10
+numThreads = 2
+processes = []
+
 try:
-	os.mkdir(outputPath)
+    os.mkdir(outputPath)
 except:
-	pass
+    pass
 files = onlyfiles(inputPath)
+
+y = Value('i', 0)
 
 def extractVideoFrames(file, outputPath,y):
 	outDir = outputPath + "/" + file.split("/")[-1].split(".")[0]
 	try:
-		os.mkdir(outDir )
+		os.mkdir(outDir)
 	except:
 		pass
 	extractFrames(file,outDir ,resolution = (1080,1920), letterBox = 1)
 	y.value -=1
 
 
-y = Value('i', 0)
-print(y.value)
 
-while(len(files)>0):
-	if(y.value < numThreads):
-		y.value +=1
-		file = files.pop()
-		print(file)
-		Process(target = extractVideoFrames, args = (file, outputPath, y,)).start()
+
+if __name__ == '__main__':
+    # while(len(files)>0):
+    for i in tqdm(range(len(files))):
+        if(y.value < numThreads):
+            y.value +=1
+            file = files.pop()
+            process = Process(target = extractVideoFrames, args = (file, outputPath, y,))
+            process.start()
+            process.join()
