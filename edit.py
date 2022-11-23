@@ -6,6 +6,7 @@ import time
 from tool.files import *
 
 maxPreload = 20000
+skipFrames = 60
 inputPath = "./inputs"
 outputPath = "./segmentLabels"
 
@@ -38,10 +39,10 @@ if __name__ == "__main__":
     for vid in videos:
         frames = natSort(onlyfiles(vid))
 
-
+        preloadFrame = preloadFrames()
         if(len(frames)<maxPreload):
-            preloadFrames = preloadFrames()
-            preloadFrames.run(frames)
+
+            preloadFrame.run(frames)
         frameN = 0
 
         labelList = []
@@ -49,8 +50,8 @@ if __name__ == "__main__":
         currentClass = "0"
         while(1):
 
-            if(len(frames)==len(preloadFrames.frames)):
-                frame = preloadFrames.frames[frameN]
+            if(len(frames)==len(preloadFrame.frames)):
+                frame = preloadFrame.frames[frameN]
             else:
                 frame = cv2.imread(frames[frameN])
             frame = cv2.resize(frame, (1500,800))
@@ -65,13 +66,13 @@ if __name__ == "__main__":
                 frameN+=1
             elif(k==97 and frameN > 1): #left arrow
                 frameN-=1
-            elif(k==101 and frameN + 5 < len(frames)): #e skip
-                frameN+=5
-            elif(k==113 and frameN > 5): #q skip
-                frameN-=5
-            elif(k==115 and frameN + 5 < len(frames)): #down arrow
+            elif(k==101 and frameN + skipFrames < len(frames)): #e skip
+                frameN+=skipFrames
+            elif(k==113 and frameN > skipFrames): #q skip
+                frameN-=skipFrames
+            elif(k==115 ): #down arrow
                 start = frameN
-            elif(k==119 and frameN > 5): #up arrow
+            elif(k==119 ): #up arrow
                 if(frameN > start and start != -1):
                     labelList.append((start,frameN, int(currentClass)))
                     print("Adding to list [start, end, class] ", (start,frameN, int(currentClass)))
@@ -92,4 +93,5 @@ if __name__ == "__main__":
             for line in labelList:
                 f.write(str(line).replace(",","").replace("(","").replace(")","")+"\n")
         f.close()
-        preloadFrames.stopLoad =1
+        preloadFrame.stopLoad =1
+        del preloadFrame
