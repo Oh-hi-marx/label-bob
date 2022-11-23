@@ -65,6 +65,10 @@ for videoLabel in videoLabels:
                 fileName = "img_000" + str(countFromZero) + ".jpg"
             elif(countFromZero<1000):
                 fileName = "img_00" + str(countFromZero) + ".jpg"
+            elif(countFromZero<10000):
+                fileName = "img_0" + str(countFromZero) + ".jpg"
+            else:
+                fileName = "img_" + str(countFromZero) + ".jpg"
             shutil.copyfile(frames[counter],framePath + "/" + fileName)
 
             #print(frames[counter],framePath + "/" + fileName)
