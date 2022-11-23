@@ -46,7 +46,6 @@ if __name__ == "__main__":
 
         preloadFrame = preloadFrames()
         if(len(frames)<maxPreload):
-
             preloadFrame.run(frames)
         frameN = 0
         alreadyLabeledFrames = []
@@ -69,7 +68,7 @@ if __name__ == "__main__":
             putText (frame, "Frame: %i" %(frameN), (int(outputX/1.1), int(outputY/15)), color = (0,255,1))
             putText (frame, "Class: %s"%(currentClass), (int(outputX/1.1), int(outputY/10)), color = (0,255,1))
             if(saveMessage!= ""):
-                putText(frame, saveMessage, (int(outputX/3), int(outputY/3)),  (0,255,1),3,2)
+                putText(frame, saveMessage, (int(outputX/5), int(outputY/3)),  (0,255,1),3,2)
             saveMessage = ""
             frame = cv2.resize(frame, (outputX, outputY))
             cv2.imshow("", frame)
