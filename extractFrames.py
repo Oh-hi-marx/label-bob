@@ -30,6 +30,7 @@ def extractVideoFrames(file, outputPath,y):
 
 
 if __name__ == '__main__':
+    threads =[]
     # while(len(files)>0):
     for i in tqdm(range(len(files))):
         if(y.value < numThreads):
@@ -37,4 +38,7 @@ if __name__ == '__main__':
             file = files.pop()
             process = Process(target = extractVideoFrames, args = (file, outputPath, y,))
             process.start()
-            process.join()
+            threads.append(process)
+            # process.join()
+    for t in threads:
+        t.join()
