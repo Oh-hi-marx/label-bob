@@ -32,7 +32,7 @@ def extractVideoFrames(file, outputPath,y):
 if __name__ == '__main__':
     threads =[]
     # while(len(files)>0):
-    for i in tqdm(range(len(files))):
+    for i in tqdm(range(len(files)), desc='Extracting frames'):
         if(y.value < numThreads):
             y.value +=1
             file = files.pop()

@@ -5,3 +5,4 @@
 /segmentLabels/*
 /temp/*
 labels.txt
+/tool/__pycache__
