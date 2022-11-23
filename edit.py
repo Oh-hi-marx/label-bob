@@ -84,6 +84,10 @@ if __name__ == "__main__":
                 currentClass = currentClass + chr(k)
             elif(k==8 and len(currentClass)>0):  #delete key - delete class number
                 currentClass = currentClass[0:len(currentClass)-1]
+            elif(k==122):#z - undo last clip
+                if(len(labelList)>0):
+                    labelList.pop()
+                    print("Remove last segment")
 
             print(frameN, labelList, currentClass)
         txtPath = outputPath+ "/"+ vid.split("/")[-1]+".txt"
