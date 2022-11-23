@@ -4,7 +4,7 @@ import os
 from threading import Thread
 import time
 from tool.files import *
-
+outputX = 1800;outputY = 1000
 maxPreload = 20000
 skipFrames = 60
 inputPath = "./inputs"
@@ -21,7 +21,9 @@ def putText(img, text, org = (10,10),color = (155, 125, 30), fontScale = 1.3, th
     font = cv2.FONT_HERSHEY_SIMPLEX
     img = cv2.putText(img, text, org, font,
                     fontScale, color, thickness, cv2.LINE_AA)
-
+def trackLabeledFrames(alreadyLabeledFrames, start, end, classN):
+    a = list(range(start, end))
+    alreadyLabeledFrames.append(a)
 class preloadFrames():
     def __init__(self):
         self.frames = []
@@ -47,23 +49,33 @@ if __name__ == "__main__":
 
             preloadFrame.run(frames)
         frameN = 0
-
+        alreadyLabeledFrames = []
         labelList = []
         start =-1
         currentClass = "0"
         saveMessage = ""
         while(1):
-
+            #load frame from memory or disk
             if(len(frames)==len(preloadFrame.frames)):
-                frame = preloadFrame.frames[frameN]
+                frameNew = preloadFrame.frames[frameN]
             else:
-                frame = cv2.imread(frames[frameN])
+                frameNew = cv2.imread(frames[frameN])
+            #put informational text
+            frame = frameNew.copy()
 
-            frame = cv2.resize(frame, (1800,1000))
+            for alreadyLabeled in alreadyLabeledFrames:
+                if( frameN in alreadyLabeled):
+                    putText (frame, "ALREADY LABELED", (int(outputX/5), int(outputY/2)), color = (0,2,255), fontScale = 5, thickness = 5)
+            putText (frame, "Frame: %i" %(frameN), (int(outputX/1.1), int(outputY/15)), color = (0,255,1))
+            putText (frame, "Class: %s"%(currentClass), (int(outputX/1.1), int(outputY/10)), color = (0,255,1))
+            if(saveMessage!= ""):
+                putText(frame, saveMessage, (int(outputX/3), int(outputY/3)),  (0,255,1),3,2)
+            saveMessage = ""
+            frame = cv2.resize(frame, (outputX, outputY))
             cv2.imshow("", frame)
 
             k = cv2.waitKey(0)
-            print(k)
+
             if(k==27): #esc to exit
                 break
 
@@ -77,25 +89,29 @@ if __name__ == "__main__":
                 frameN-=skipFrames
             elif(k==115 ): #down arrow
                 start = frameN
+                saveMessage="Set start at frame %i"%start
             elif(k==119 ): #up arrow
-                if(frameN > start and start != -1):
+                if(frameN > start and start != -1 and currentClass!=""):
                     labelList.append((start,frameN, int(currentClass)))
+                    trackLabeledFrames(alreadyLabeledFrames, start,frameN, int(currentClass))
                     saveMessage = "Added frame %i:%i (class %i)"%(start, frameN, int(currentClass))
                     print("Adding to list [start, end, class] ", (start,frameN, int(currentClass)))
             elif(k>47 and k<58): #number keys - set class number
                 if(len(currentClass)>0):
                     if(currentClass[0]=="0"):
                         currentClass = currentClass[1:-1]
-                print(chr(k))
+
                 currentClass = currentClass + chr(k)
             elif(k==8 and len(currentClass)>0):  #delete key - delete class number
                 currentClass = currentClass[0:len(currentClass)-1]
             elif(k==122):#z - undo last clip
                 if(len(labelList)>0):
                     labelList.pop()
+                    saveMessage = "Removed last segment %i:%i (class %i)"%(start, frameN, int(currentClass))
                     print("Remove last segment")
 
-            print(frameN, labelList, currentClass)
+            print(labelList)
+        labelList = list(dict.fromkeys(labelList))
         txtPath = outputPath+ "/"+ vid.split("/")[-1]+".txt"
         print(txtPath)
         with open(txtPath, 'w') as f:
