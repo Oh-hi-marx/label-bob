@@ -17,7 +17,10 @@ except:
 videos = onlyfolders(inputPath)
 print("Found %i videos"%len(videos))
 
-
+def putText(img, text, org = (10,10),color = (155, 125, 30), fontScale = 1.3, thickness = 1):
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    img = cv2.putText(img, text, org, font,
+                    fontScale, color, thickness, cv2.LINE_AA)
 
 class preloadFrames():
     def __init__(self):
@@ -48,13 +51,15 @@ if __name__ == "__main__":
         labelList = []
         start =-1
         currentClass = "0"
+        saveMessage = ""
         while(1):
 
             if(len(frames)==len(preloadFrame.frames)):
                 frame = preloadFrame.frames[frameN]
             else:
                 frame = cv2.imread(frames[frameN])
-            frame = cv2.resize(frame, (1500,800))
+
+            frame = cv2.resize(frame, (1800,1000))
             cv2.imshow("", frame)
 
             k = cv2.waitKey(0)
@@ -75,6 +80,7 @@ if __name__ == "__main__":
             elif(k==119 ): #up arrow
                 if(frameN > start and start != -1):
                     labelList.append((start,frameN, int(currentClass)))
+                    saveMessage = "Added frame %i:%i (class %i)"%(start, frameN, int(currentClass))
                     print("Adding to list [start, end, class] ", (start,frameN, int(currentClass)))
             elif(k>47 and k<58): #number keys - set class number
                 if(len(currentClass)>0):
