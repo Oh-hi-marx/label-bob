@@ -1,7 +1,7 @@
 # label-bob
-label-bob is a fast tool to annotate youtube videos for [mmaction 2](https://github.com/open-mmlab/mmaction2). This tool downloads youtube clips, helps label the individual frames and extracts them to be ready for training.
+label-bob is a fast tool to annotate youtube videos for [mmaction 2](https://github.com/open-mmlab/mmaction2). This tool downloads youtube clips, helps label the individual frames and extracts them to be ready for training compatible with MMCV formatting.
 
-![](https://github.com/Oh-hi-marx/label-bob/blob/master/readme/ui.png)
+![](https://github.com/Oh-hi-marx/label-bob/blob/readme/readme/ui.png)
 
 ## Installation
 After cloning the repository and going inside the repository root, install all the pre-requisite libraries by running:
@@ -13,7 +13,7 @@ pip install -r requirements.txt
 ### Creating a link collection
 Before labelling, the urls for the youtube clips need to be stored in a text file inside the root directory of the repository. Each link needs to be on a different line. An example is shown below:
 
-![](https://github.com/Oh-hi-marx/label-bob/blob/master/readme/link-collection.png)
+![](https://github.com/Oh-hi-marx/label-bob/blob/readme/readme/link-collection.png)
 
 ### Running the script
 To run the tool, do the following on bash:
@@ -28,7 +28,7 @@ python auto-run.py
 After running the script it will ask for the text file that is in the root directory of the repo that has all the links in it. Input the text file name (without the extention). After input, the tool will start downloading the youtube clips into ```/downloads``` folder, and then extract the individual frames for youtube clip into ```/outputs``` folder. The labels are stored inside ```/segmentLabels``` after labelling has been completed.
 
 ### Labelling
-On the label screen, use ```A``` and ```D``` to go through the frames. To mark the start of a clip, use ```S``` and then enter a number for the class ID. To mark the end of a clip, press ```W```. The frame number, classes, and the current labels will be shown on the terminal. To remove the last label, press ```Z```.
+On the label screen, use ```A``` and ```D``` to go through the frames. To mark the start of a clip, use ```S``` and then enter a number for the class ID. Use delete to ```delete``` the class number. To mark the end of a clip, press ```W```. The frame number, classes, and the current labels will be shown on the terminal. To remove the last label, press ```Z```.
 
 
 
@@ -37,6 +37,13 @@ After labelling is complete for the current video, press ```ESC``` to finish. Th
 startFrame endFrame classNumber
 ```
 The annotation file with the labels will then be stored inside ```/segmentLabels```.
+
+
+To export frames and a label.txt file compatible with the MMCV mmaction2 rawframes format, run 
+```
+python segment.py
+```
+A outputs folder and an associated labels.txt file  will be generated. These can directly be placed into a mmaction dataset folder for training.
 
 ## Citation
 If this tool was useful, please consider citing:
