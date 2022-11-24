@@ -13,7 +13,7 @@ labelPath = "./segmentLabels"
 outputPath = "./outputs"
 labelsOutPath = "./labels.txt"
 
-segmentLength = 99999999999999
+segmentLength = 16
 
 try:
     os.mkdir(outputPath)
