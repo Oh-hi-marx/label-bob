@@ -9,12 +9,8 @@ from tool.videos import *
 
 inputPath = "./downloads"
 outputPath = "inputs"
-numThreads = 10
-try:
-	os.mkdir(outputPath)
-except:
-	pass
-files = onlyfiles(inputPath)
+numThreads = 2
+processes = []
 
 def extractVideoFrames(file, outputPath,y):
 	outDir = outputPath + "/" + file.split("/")[-1].split(".")[0]
@@ -26,12 +22,24 @@ def extractVideoFrames(file, outputPath,y):
 	y.value -=1
 
 
-y = Value('i', 0)
-print(y.value)
+if __name__ == '__main__':
+    try:
+        os.mkdir(outputPath)
+    except:
+        pass
+    files = onlyfiles(inputPath)
 
-while(len(files)>0):
-	if(y.value < numThreads):
-		y.value +=1
-		file = files.pop()
-		print(file)
-		Process(target = extractVideoFrames, args = (file, outputPath, y,)).start()
+    y = Value('i', 0)
+    print(y.value)
+
+    while(len(files)>0):
+        if(y.value < numThreads):
+            y.value +=1
+            file = files.pop()
+            print(file)
+            p = Process(target = extractVideoFrames, args = (file, outputPath, y,))
+            p.start()
+            processes.append(p)
+        for p in processes:
+            p.join()
+            
