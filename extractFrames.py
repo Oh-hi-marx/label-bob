@@ -2,8 +2,9 @@ import cv2
 import numpy as np
 import time
 import os
-from multiprocessing import Process,  Value
 
+from multiprocessing import Process,  Value
+from tqdm.auto import tqdm
 from tool.files import *
 from tool.videos import *
 
@@ -32,7 +33,7 @@ if __name__ == '__main__':
     y = Value('i', 0)
     print(y.value)
 
-    while(len(files)>0):
+    for i in tqdm(range(len(files)), desc='Extracting frames'):
         if(y.value < numThreads):
             y.value +=1
             file = files.pop()
