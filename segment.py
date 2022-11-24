@@ -52,6 +52,7 @@ for videoLabel in videoLabels:
                 print(counter,countFromZero,end,)
                 f.write(framePath+" " + str(min(end-counter, segmentLength)) +" " + str(classN) + "\n")
                 f.close()
+                countFromZero = 0
                 try:
                     os.mkdir(framePath )
                 except:
