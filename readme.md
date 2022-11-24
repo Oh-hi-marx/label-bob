@@ -38,6 +38,7 @@ startFrame endFrame classNumber
 ```
 The annotation file with the labels will then be stored inside ```/segmentLabels```.
 
+### Export to MMCV raw frames format
 
 To export frames and a label.txt file compatible with the MMCV mmaction2 rawframes format, run 
 ```
