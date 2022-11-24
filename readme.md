@@ -15,7 +15,7 @@ Before labelling, the urls for the youtube clips need to be stored in a text fil
 
 ![](https://github.com/Oh-hi-marx/label-bob/blob/readme/readme/link-collection.png)
 
-### Running the tool
+### Running auto
 To run the all the tools one after another, do the following on bash:
 ```
 bash auto.sh
@@ -25,9 +25,10 @@ If on a windows operating system, you may run the following instead:
 python auto-run.py
 ```
 
-Follow the step by step guide on each tool to follow along on the next steps. *Note:* You do not need to run the commands again as ```auto.sh``` or ```auto-run.py``` does it for you.
+Follow the step by step guide on each tool to follow along on the next steps. **Note:** You do not need to run the commands again as ```auto.sh``` or ```auto-run.py``` does it for you.
 
 ### Downloading the clips
+
 Run the following to start downloading the clips mentioned in the link collection:
 ```
 python downloadFromTxt.py
@@ -42,6 +43,7 @@ python ExtractFrames.py
 This will extract the individual frames for each clip stored in ```/downloads``` and put them into the ```/inputs``` folder.
 
 ### Labelling
+
 To start labelling, run:
 ```
 python edit.py
