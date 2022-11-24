@@ -7,7 +7,7 @@ from tool.files import *
 outputX = 1800;outputY = 1000
 maxPreload = 20000
 skipFrames = 60
-inputPath = "./inputs"
+inputPath = "./extractedFrames"
 outputPath = "./segmentLabels"
 
 try:

@@ -7,3 +7,4 @@
 labels.txt
 /tool/__pycache__/*
 *.pyc
+/extractedFrames

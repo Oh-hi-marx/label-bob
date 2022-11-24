@@ -9,7 +9,7 @@ from tool.files import *
 from tool.videos import *
 
 inputPath = "./downloads"
-outputPath = "inputs"
+outputPath = "extractedFrames"
 numThreads = 2
 processes = []
 
