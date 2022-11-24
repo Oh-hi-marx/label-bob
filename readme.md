@@ -1,7 +1,7 @@
 # label-bob
 label-bob is a fast tool to annotate youtube videos for [mmaction 2](https://github.com/open-mmlab/mmaction2). This tool downloads youtube clips, helps label the individual frames and extracts them to be ready for training.
 
-![](https://github.com/Oh-hi-marx/label-bob/blob/readme/readme/ui.png)
+![](https://github.com/Oh-hi-marx/label-bob/blob/master/readme/ui.png)
 
 ## Installation
 After cloning the repository and going inside the repository root, install all the pre-requisite libraries by running:
@@ -13,7 +13,7 @@ pip install -r requirements.txt
 ### Creating a link collection
 Before labelling, the urls for the youtube clips need to be stored in a text file inside the root directory of the repository. Each link needs to be on a different line. An example is shown below:
 
-![](https://github.com/Oh-hi-marx/label-bob/blob/readme/readme/link-collection.png)
+![](https://github.com/Oh-hi-marx/label-bob/blob/master/readme/link-collection.png)
 
 ### Running the script
 To run the tool, do the following on bash:
