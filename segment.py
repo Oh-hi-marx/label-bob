@@ -7,7 +7,7 @@ import shutil
 from tool.files import *
 from tool.videos import *
 
-inputPath = "./inputs"
+inputPath = "./extractedFrames"
 labelPath = "./segmentLabels"
 
 outputPath = "./outputs"
