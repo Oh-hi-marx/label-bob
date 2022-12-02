@@ -1,6 +1,3 @@
-import cv2
-import numpy as np
-import time
 import os
 
 from multiprocessing import Process,  Value
@@ -32,9 +29,8 @@ if __name__ == '__main__':
     files = onlyfiles(inputPath)
 
     y = Value('i', 0)
-    print(y.value)
 
-    for i in tqdm(range(len(files)), desc=f'Extracting {files[-1]}'):
+    for i in tqdm(range(len(files)), desc=f'Extracting frames'):
         if(y.value < numThreads):
             y.value += 1
             file = files.pop()
