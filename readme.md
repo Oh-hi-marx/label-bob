@@ -39,7 +39,7 @@ After running the script it will ask for the text file that is in the root direc
 ### Extracting the frames
 To run this tool separately, run:
 ```
-python ExtractFrames.py
+python extractFrames.py
 ```
 This will extract the individual frames for each clip stored in ```/downloads``` and put them into the ```/inputs``` folder.
 
