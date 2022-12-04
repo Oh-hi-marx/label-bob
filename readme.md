@@ -39,7 +39,7 @@ After running the script it will ask for the text file that is in the root direc
 ### Extracting the frames
 To run this tool separately, run:
 ```
-python ExtractFrames.py
+python extractFrames.py
 ```
 This will extract the individual frames for each clip stored in ```/downloads``` and put them into the ```/inputs``` folder.
 
@@ -50,7 +50,7 @@ To start labelling, run:
 python edit.py
 ```
 
-On the label screen, use ```A``` and ```D``` to go through the frames. To mark the start of a clip, use ```S``` and then enter a number for the class ID. Use delete to ```delete``` the class number. To mark the end of a clip, press ```W```. The frame number, classes, and the current labels will be shown on the terminal. To remove the last label, press ```Z```.
+On the label screen, use ```A``` and ```D``` to go through the frames. To mark the start of a clip, use ```S``` and then enter a number for the class ID. Use ```Delete``` to delete the class number. To mark the end of a clip, press ```W```. The frame number, classes, and the current labels will be shown on the terminal. To remove the last label, press ```Z```.
 
 After labelling is complete for the current video, press ```ESC``` to finish. The labels are stored in the following format inside the annotations file:
 ```
