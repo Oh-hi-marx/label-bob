@@ -1,6 +1,3 @@
-import cv2
-import numpy as np
-import math
 import os
 import shutil
 
@@ -13,7 +10,8 @@ labelPath = "./segmentLabels"
 outputPath = "./outputs"
 labelsOutPath = "./labels.txt"
 
-segmentLength = 16
+# segmentLength = 16
+segmentLength = float('inf')
 
 try:
     os.mkdir(outputPath)
