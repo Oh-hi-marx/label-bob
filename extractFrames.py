@@ -12,7 +12,7 @@ processes = []
 
 
 def extractVideoFrames(file, outputPath, y):
-    outDir = outputPath + "/" + file.split("/")[-1].split(".")[0]
+    outDir = outputPath + "/" + file.split(os.sep)[-1].split(".")[0]
     try:
         os.mkdir(outDir)
     except:
