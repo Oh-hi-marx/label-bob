@@ -7,7 +7,7 @@ from tool.videos import *
 
 inputPath = "./downloads"
 outputPath = "extractedFrames"
-numThreads = 2
+numThreads = 3
 processes = []
 
 
@@ -30,12 +30,14 @@ if __name__ == '__main__':
 
     y = Value('i', 0)
 
-    for i in tqdm(range(len(files)), desc=f'Extracting frames'):
+    while len(files)> 0:
+        
         if(y.value < numThreads):
+            print(1)
             y.value += 1
             file = files.pop()
             p = Process(target=extractVideoFrames, args=(file, outputPath, y,))
             p.start()
             processes.append(p)
-        for p in processes:
-            p.join()
+    for p in processes:
+        p.join()
